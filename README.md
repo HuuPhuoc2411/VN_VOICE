@@ -2,6 +2,8 @@
 
 `VN_VOICE` là thư viện phát âm thanh và đọc số tiếng Việt cho Arduino. Thư viện phát dữ liệu âm thanh 8-bit PCM từ file `.h`, hỗ trợ phát theo tên file, phát nối tiếp nhiều âm, chỉnh âm lượng, đọc số nguyên, số thập phân và đọc chuỗi chữ số như số điện thoại.
 
+`VN_VOICE` is an Arduino voice playback library for Vietnamese projects. It plays generated 8-bit PCM audio data from `.h` files, supports named audio clips, queued playback, volume control, Vietnamese integer and decimal number speech, and digit-by-digit reading for phone numbers or ID strings.
+
 Web tạo file âm thanh `.h`: <https://huuphuoc.cloud/vn_voice/>
 
 ## Hình Ảnh Minh Họa
