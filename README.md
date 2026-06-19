@@ -8,19 +8,13 @@ Web tạo file âm thanh `.h`: <https://huuphuoc.cloud/vn_voice/>
 
 Giao diện web tạo file `.h`:
 
-![Giao diện web tạo file audio .h](img/giao_dien_web.png)
+<img src="img/giao_dien_web.png" alt="Giao diện web tạo file audio .h" width="640">
 
-Kết nối mẫu Arduino Uno:
+Kết nối mẫu:
 
-![Sơ đồ Arduino Uno](img/arduino_uno.png)
-
-Kết nối mẫu Arduino Mega:
-
-![Sơ đồ Arduino Mega](img/mega.png)
-
-Kết nối mẫu ESP32:
-
-![Sơ đồ ESP32](img/esp32.png)
+| Arduino Uno | Arduino Mega | ESP32 |
+|---|---|---|
+| <img src="img/arduino_uno.png" alt="Sơ đồ Arduino Uno" width="240"> | <img src="img/mega.png" alt="Sơ đồ Arduino Mega" width="240"> | <img src="img/esp32.png" alt="Sơ đồ ESP32" width="240"> |
 
 ## Tính Năng
 
