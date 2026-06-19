@@ -155,12 +155,12 @@ Các ví dụ đi kèm thư viện dùng `VNVoiceExampleAudio.h`:
 Các clip mẫu hiện có:
 
 ```text
-do_am
-do_c
-nhiet_do
-phan_tram
-vi_dieu_khien
-xin_chao
+do_am: Độ ẩm
+do_c: Độ C
+nhiet_do: Nhiệt độ
+phan_tram: Phần trăm
+vi_dieu_khien: Đây là âm thanh từ vi điều khiển
+xin_chao: Xin chào
 ```
 
 ## Đọc Số Tiếng Việt
