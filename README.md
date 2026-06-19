@@ -4,6 +4,24 @@
 
 Web tạo file âm thanh `.h`: <https://huuphuoc.cloud/vn_voice/>
 
+## Hình Ảnh Minh Họa
+
+Giao diện web tạo file `.h`:
+
+![Giao diện web tạo file audio .h](img/giao_dien_web.png)
+
+Kết nối mẫu Arduino Uno:
+
+![Sơ đồ Arduino Uno](img/arduino_uno.png)
+
+Kết nối mẫu Arduino Mega:
+
+![Sơ đồ Arduino Mega](img/mega.png)
+
+Kết nối mẫu ESP32:
+
+![Sơ đồ ESP32](img/esp32.png)
+
 ## Tính Năng
 
 - Phát âm thanh tùy chỉnh từ file `audio_data.h` do web tạo ra.
@@ -83,7 +101,19 @@ nhiet_do.wav
 do_am.mp3
 ```
 
-4. Chọn sample rate:
+4. Chọn sample rate.
+
+Sample rate là tần số lấy mẫu âm thanh khi chuyển file audio thành mảng dữ liệu trong file `.h`. Tần số càng cao thì âm thanh càng rõ và giữ được nhiều chi tiết hơn, nhưng kích thước file `.h` cũng tăng lên theo, làm tốn nhiều flash hơn khi nạp vào vi điều khiển.
+
+Ví dụ gần đúng với âm thanh 8-bit PCM:
+
+| Sample rate | Dung lượng ước tính | Chất lượng |
+|---:|---:|---|
+| 8000 Hz | khoảng 8000 byte/giây | Nhẹ nhất, phù hợp Uno/Nano, đủ cho giọng nói ngắn |
+| 11025 Hz | khoảng 11025 byte/giây | Rõ hơn 8000 Hz, phù hợp Mega/ESP hoặc clip ngắn |
+| 16000 Hz | khoảng 16000 byte/giây | Rõ hơn nữa, nhưng tốn flash nhiều hơn |
+
+Gợi ý chọn theo board:
 
 | Board | Gợi ý sample rate |
 |---|---:|
@@ -380,8 +410,12 @@ Các hàm này hữu ích khi cần kiểm tra lỗi hoặc xem thư viện đan
 - Uno/Nano nên dùng chân `9` hoặc `10` để âm thanh PWM ổn hơn.
 - Arduino Mega có thể dùng các chân PWM như `2`, `3`, `5`, `6`, `7`, `8`, `9`, `10`, `44`, `45`, `46`.
 - ESP8266/ESP32 nên chọn GPIO an toàn lúc boot. Tránh dùng các chân có thể làm board không khởi động đúng.
-- Loa thụ động có thể phát trực tiếp nhưng âm nhỏ. Muốn âm to hơn nên dùng mạch khuếch đại phù hợp.
-- Nếu dùng mạch khuếch đại và nghe tiếng rít cao tần, nên dùng mạch lọc RC hoặc module khuếch đại có lọc đầu vào tốt hơn.
+- Chất lượng âm thanh phụ thuộc rất nhiều vào chất lượng loa, mạch khuếch đại, nguồn cấp và lọc nhiễu.
+- Loa có điện trở thấp hoặc công suất lớn không thể cấp trực tiếp từ chân GPIO của vi điều khiển. Nên dùng mạch khuếch đại âm thanh phù hợp.
+- Phát trực tiếp qua loa thụ động từ GPIO có thể nghe được với loa nhỏ, nhưng âm thường nhỏ, méo hoặc rè nếu tải quá nặng.
+- Tần số chuyển đổi như `8000 Hz`, `11025 Hz`, `16000 Hz` chỉ là một phần của chất lượng âm thanh. Phần cứng loa, công suất ampli, dây nối, nguồn và mạch lọc nhiễu ảnh hưởng rất lớn tới độ rõ.
+- Nếu dùng mạch khuếch đại và nghe tiếng rít cao tần, nên thêm mạch lọc RC ở đầu ra PWM hoặc dùng module khuếch đại có lọc đầu vào tốt hơn.
+- Nếu loa nóng, âm rè mạnh hoặc board reset, hãy ngắt nguồn và kiểm tra lại tải loa, mạch khuếch đại và cách cấp nguồn.
 
 ## Tips Giảm Dung Lượng
 
