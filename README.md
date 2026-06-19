@@ -281,87 +281,151 @@ void loop() {
 
 ## API Chính
 
-### Khởi Động
+### Khởi Động Thư Viện
+
+| Hàm | Cần truyền vào | Ý nghĩa |
+|---|---|---|
+| `TinyAudio.begin(SPEAKER_PIN);` | `SPEAKER_PIN` | Chân GPIO/PWM dùng để phát âm thanh |
+| `TinyAudio.begin(SPEAKER_PIN, false, 100);` | `SPEAKER_PIN`, `directSpeakerMode`, `volumePercent` | Chân phát, chế độ phát trực tiếp, âm lượng ban đầu |
+
+Trong đa số trường hợp chỉ cần dùng:
 
 ```cpp
-TinyAudio.begin(pin);
-TinyAudio.begin(pin, directSpeakerMode, volumePercent);
+TinyAudio.begin(SPEAKER_PIN);
 ```
 
-- `pin`: chân phát âm thanh.
-- `directSpeakerMode`: mặc định `false`. Thường giữ mặc định để dùng PWM.
-- `volumePercent`: âm lượng ban đầu từ `0` đến `100`.
+### Hàm Luôn Gọi Trong `loop()`
 
-### Vòng Lặp
+| Hàm | Cần truyền vào | Ý nghĩa |
+|---|---|---|
+| `TinyAudio.loop();` | Không có | Cập nhật thư viện để phát âm thanh và chạy hàng chờ |
+
+Luôn đặt hàm này trong `loop()`:
 
 ```cpp
-TinyAudio.loop();
+void loop() {
+  TinyAudio.loop();
+}
 ```
 
-Luôn gọi trong `loop()`. Trên ESP8266/ESP32, hàm này rất quan trọng vì thư viện cần nó để đẩy mẫu âm thanh đúng thời gian.
+### Phát Âm Thanh Theo Tên
 
-### Phát Âm Thanh
+| Hàm | Cần truyền vào | Ý nghĩa |
+|---|---|---|
+| `playSound("xin_chao", 100);` | Tên âm, âm lượng | Phát âm thanh tên `xin_chao` ở âm lượng 100% |
+| `TinyAudio.play("xin_chao", 80);` | Tên âm, âm lượng | Giống `playSound`, phát âm lượng 80% |
+| `TinyAudio.playOrFirst("xin_chao", 100);` | Tên âm, âm lượng | Nếu không tìm thấy tên thì phát âm đầu tiên |
+
+Vị trí truyền vào:
+
+- Vị trí 1: tên âm thanh, viết trong dấu `"..."`.
+- Vị trí 2: âm lượng từ `0` đến `100`.
+
+Ví dụ:
 
 ```cpp
-playSound("ten_am", volumePercent);
-playSound(index, volumePercent);
-TinyAudio.play("ten_am", volumePercent);
-TinyAudio.play(index, volumePercent);
-TinyAudio.playOrFirst("ten_am", volumePercent);
+playSound("nhiet_do", 100);
+playSound("do_c", 80);
 ```
 
-- `volumePercent`: từ `0` đến `100`.
-- Nếu đang có âm phát, âm mới sẽ được đưa vào hàng chờ.
-- `playOrFirst()` sẽ phát clip theo tên; nếu không tìm thấy tên thì phát clip đầu tiên.
+### Phát Âm Thanh Theo Thứ Tự
 
-### Chờ Phát Xong
+| Hàm | Cần truyền vào | Ý nghĩa |
+|---|---|---|
+| `playSound(0, 100);` | Số thứ tự, âm lượng | Phát clip số 0 trong file `.h` |
+| `TinyAudio.play(1, 100);` | Số thứ tự, âm lượng | Phát clip số 1 trong file `.h` |
+
+Nên ưu tiên phát theo tên vì dễ hiểu hơn phát theo số thứ tự.
+
+### Chờ Âm Thanh Phát Xong
+
+| Hàm | Cần truyền vào | Ý nghĩa |
+|---|---|---|
+| `waitAudioDone();` | Không có | Chờ phát xong toàn bộ âm đang phát |
+| `waitAudioDone(1000);` | Thời gian nghỉ thêm | Chờ phát xong, sau đó nghỉ thêm 1000 ms |
+
+Ví dụ phát 2 âm nối tiếp có nghỉ giữa hai âm:
 
 ```cpp
-waitAudioDone();
-waitAudioDone(1000);
+playSound("nhiet_do", 100);
+waitAudioDone(300);
+playSound("do_c", 100);
 ```
 
-Hàm này chờ tới khi âm thanh và hàng chờ phát xong. Tham số là thời gian nghỉ thêm sau khi phát xong, đơn vị mili giây.
+### Đọc Số Nguyên
 
-### Đọc Số
+| Hàm | Cần truyền vào | Ý nghĩa |
+|---|---|---|
+| `playNumber(123, 100, 3);` | Số cần đọc, âm lượng, tốc độ | Đọc số `123` |
 
-```cpp
-playNumber(123, volumePercent, speedLevel);
-playNumber(36.58, volumePercent, speedLevel, decimalDigits);
-playDigit("0934511069", volumePercent, speedLevel);
-```
+Vị trí truyền vào:
 
-Giới hạn:
+- Vị trí 1: số nguyên cần đọc, từ `0` đến `999999999`.
+- Vị trí 2: âm lượng từ `0` đến `100`.
+- Vị trí 3: tốc độ đọc từ `1` đến `4`.
 
-- `playNumber()` số nguyên: `0` đến `999999999`.
-- `playNumber()` số thập phân: `0.0` đến `999999999.999999`.
-- `decimalDigits`: tối đa `6`.
-- `playDigit()`: chuỗi chỉ gồm ký tự `0` đến `9`, tối đa 20 chữ số.
-- `speedLevel`: từ `1` đến `4`.
+### Đọc Số Thập Phân
 
-### Âm Lượng Và Trạng Thái
+| Hàm | Cần truyền vào | Ý nghĩa |
+|---|---|---|
+| `playNumber(36.58, 100, 3, 2);` | Số cần đọc, âm lượng, tốc độ, số chữ số sau dấu chấm | Đọc `ba mươi sáu chấm năm tám` |
 
-```cpp
-TinyAudio.setVolume(80);
-TinyAudio.volume();
-TinyAudio.isPlaying();
-TinyAudio.isSamplePlaying();
-TinyAudio.stop();
-```
+Vị trí truyền vào:
 
-### Thông Tin Và Debug
+- Vị trí 1: số thập phân cần đọc.
+- Vị trí 2: âm lượng từ `0` đến `100`.
+- Vị trí 3: tốc độ đọc từ `1` đến `4`.
+- Vị trí 4: số chữ số sau dấu chấm, tối đa `6`.
 
-```cpp
-TinyAudio.clipCount();
-TinyAudio.queueCount();
-TinyAudio.currentSampleRate();
-TinyAudio.currentLength();
-TinyAudio.sampleIndex();
-TinyAudio.lastError();
-TinyAudio.lastErrorText();
-```
+### Đọc Từng Chữ Số
 
-Các hàm này hữu ích khi cần kiểm tra lỗi hoặc xem thư viện đang phát tới đâu.
+| Hàm | Cần truyền vào | Ý nghĩa |
+|---|---|---|
+| `playDigit("0934511069", 100, 3);` | Chuỗi số, âm lượng, tốc độ | Đọc từng chữ số, phù hợp đọc số điện thoại |
+
+Vị trí truyền vào:
+
+- Vị trí 1: chuỗi chữ số, phải đặt trong dấu `"..."`.
+- Vị trí 2: âm lượng từ `0` đến `100`.
+- Vị trí 3: tốc độ đọc từ `1` đến `4`.
+
+Giới hạn: chuỗi chỉ gồm ký tự `0` đến `9`, tối đa 20 chữ số.
+
+### Tốc Độ Đọc Số
+
+| Giá trị | Ý nghĩa |
+|---:|---|
+| `1` | Chậm |
+| `2` | Chậm vừa |
+| `3` | Bình thường |
+| `4` | Nhanh |
+
+### Chỉnh Âm Lượng
+
+| Hàm | Cần truyền vào | Ý nghĩa |
+|---|---|---|
+| `TinyAudio.setVolume(80);` | Âm lượng | Đặt âm lượng mặc định là 80% |
+| `TinyAudio.volume();` | Không có | Trả về âm lượng hiện tại |
+
+### Kiểm Tra Trạng Thái
+
+| Hàm | Cần truyền vào | Ý nghĩa |
+|---|---|---|
+| `TinyAudio.isPlaying();` | Không có | `true` nếu đang phát âm hoặc còn âm trong hàng chờ |
+| `TinyAudio.isSamplePlaying();` | Không có | `true` nếu đang phát trực tiếp một clip |
+| `TinyAudio.stop();` | Không có | Dừng phát âm thanh và xóa hàng chờ |
+
+### Hàm Kiểm Tra Lỗi
+
+| Hàm | Cần truyền vào | Ý nghĩa |
+|---|---|---|
+| `TinyAudio.clipCount();` | Không có | Số clip đang có trong file `.h` |
+| `TinyAudio.queueCount();` | Không có | Số âm đang chờ phát |
+| `TinyAudio.currentSampleRate();` | Không có | Tần số âm thanh hiện tại |
+| `TinyAudio.currentLength();` | Không có | Độ dài clip hiện tại theo số mẫu |
+| `TinyAudio.sampleIndex();` | Không có | Vị trí mẫu âm thanh đang phát |
+| `TinyAudio.lastError();` | Không có | Mã lỗi gần nhất |
+| `TinyAudio.lastErrorText();` | Không có | Tên lỗi gần nhất |
 
 ## Macro Quan Trọng
 
