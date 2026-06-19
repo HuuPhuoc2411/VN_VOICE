@@ -56,32 +56,6 @@ Documents/Arduino/libraries/VN_VOICE
 3. Mở lại Arduino IDE.
 4. Vào `File > Examples > VN_VOICE` để mở ví dụ.
 
-## Cấu Trúc Thư Viện
-
-```text
-VN_VOICE/
-  library.properties
-  keywords.txt
-  README.md
-  src/
-    VN_VOICE.h
-    TinyAudioPlayer.h
-    TinyAudioPlayer.cpp
-    so_dem.h
-    VNVoiceExampleAudio.h
-  examples/
-    CustomAudio/
-      CustomAudio.ino
-      audio_data.h
-    ButtonPlaySound/
-      ButtonPlaySound.ino
-    NumberVoice/
-      NumberVoice.ino
-    AnalogTemperatureDemo/
-      AnalogTemperatureDemo.ino
-```
-
-`VNVoiceExampleAudio.h` là file âm thanh mẫu đi kèm thư viện để examples chạy được ngay. Khi làm dự án thật, người dùng tạo file `audio_data.h` bằng web và đặt cạnh file `.ino`.
 
 ## Tạo File Audio .h
 
