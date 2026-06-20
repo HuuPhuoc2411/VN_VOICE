@@ -585,7 +585,8 @@ bool TinyAudioPlayer::loadCurrentChunk() {
 
 uint8_t TinyAudioPlayer::readChunkByte(uint16_t offset) const {
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
-  return pgm_read_byte_far(_currentChunk.data + offset);
+  const uint_farptr_t address = (uint_farptr_t)_currentChunk.data + (uint_farptr_t)offset;
+  return pgm_read_byte_far(address);
 #else
   return pgm_read_byte_near(_currentChunk.data + offset);
 #endif
@@ -855,6 +856,74 @@ void TinyAudioPlayer::setOutput(uint8_t value) {
   }
 
 #if defined(ARDUINO_ARCH_AVR)
+#if defined(__AVR_ATmega2560__)
+  switch (_speakerPin) {
+#if defined(OCR3B)
+    case 2:
+      OCR3B = value;
+      break;
+#endif
+#if defined(OCR3C)
+    case 3:
+      OCR3C = value;
+      break;
+#endif
+#if defined(OCR3A)
+    case 5:
+      OCR3A = value;
+      break;
+#endif
+#if defined(OCR4A)
+    case 6:
+      OCR4A = value;
+      break;
+#endif
+#if defined(OCR4B)
+    case 7:
+      OCR4B = value;
+      break;
+#endif
+#if defined(OCR4C)
+    case 8:
+      OCR4C = value;
+      break;
+#endif
+    case 9:
+#if defined(DDRH) && defined(PH6)
+      DDRH |= _BV(PH6);
+#endif
+      TCCR2A = _BV(COM2B1) | _BV(WGM21) | _BV(WGM20);
+      TCCR2B = _BV(CS20);
+      OCR2B = value;
+      break;
+    case 10:
+#if defined(DDRB) && defined(PB4)
+      DDRB |= _BV(PB4);
+#endif
+      TCCR2A = _BV(COM2A1) | _BV(WGM21) | _BV(WGM20);
+      TCCR2B = _BV(CS20);
+      OCR2A = value;
+      break;
+#if defined(OCR5C)
+    case 44:
+      OCR5C = value;
+      break;
+#endif
+#if defined(OCR5B)
+    case 45:
+      OCR5B = value;
+      break;
+#endif
+#if defined(OCR5A)
+    case 46:
+      OCR5A = value;
+      break;
+#endif
+    default:
+      digitalWrite(_speakerPin, value >= 128 ? HIGH : LOW);
+      break;
+  }
+#else
   switch (_avrPwmChannel) {
     case TINY_AUDIO_AVR_PWM_1A:
       OCR1A = value;
@@ -917,6 +986,9 @@ void TinyAudioPlayer::setOutput(uint8_t value) {
       digitalWrite(_speakerPin, value >= 128 ? HIGH : LOW);
       break;
   }
+#endif
+#elif defined(ESP8266)
+  analogWrite(_speakerPin, value);
 #elif defined(ESP32)
 #if defined(ESP_ARDUINO_VERSION_MAJOR) && ESP_ARDUINO_VERSION_MAJOR >= 3
   ledcWrite(_speakerPin, value);

@@ -13,16 +13,16 @@
 #include <pgmspace.h>
 #endif
 
-#if defined(SO_DEM) && defined(ARDUINO_ARCH_AVR) && !defined(__AVR_ATmega2560__)
-#error "SO_DEM number voice data is too large for Arduino Uno/Nano. Remove #define SO_DEM to play short custom audio clips only, or use Arduino Mega/ESP8266/ESP32 for number reading."
-#endif
-
 #ifndef PROGMEM
 #define PROGMEM
 #endif
 
 #ifndef pgm_read_byte_near
 #define pgm_read_byte_near(address_short) (*(const uint8_t *)(address_short))
+#endif
+
+#ifndef TINY_AUDIO_LOWTEXT
+#define TINY_AUDIO_LOWTEXT
 #endif
 
 #ifndef TINY_AUDIO_DEFAULT_SPEAKER_PIN
@@ -43,7 +43,7 @@
 #endif
 #endif
 
-#if defined(ARDUINO_ARCH_AVR) && defined(RAMPZ)
+#if defined(__AVR_ATmega2560__) || (defined(ARDUINO_ARCH_AVR) && defined(RAMPZ))
 #define TINY_AUDIO_USE_FAR_PROGMEM 1
 typedef uint_farptr_t TinyAudioDataPtr;
 #else
@@ -207,6 +207,19 @@ inline bool playSound(uint16_t index, uint8_t volumePercent = 100) {
   return TinyAudio.play(index, volumePercent);
 }
 
+inline void waitAudioDone(uint16_t pauseAfterMs = 0) {
+  TinyAudio.waitAudioDone(pauseAfterMs);
+}
+
+#endif
+
+#if (defined(TINY_AUDIO_ENABLE_NUMBER) || defined(SO_DEM)) && !defined(TINY_AUDIO_NUMBER_IMPL)
+#define TINY_AUDIO_NUMBER_IMPL
+
+extern const AudioClipInfo soDemClips[] TINY_AUDIO_METADATA_PROGMEM;
+extern const uint16_t soDemClipCount;
+extern const uint16_t soDemSampleRate;
+
 inline bool playNumber(int number, uint8_t volumePercent = 100, uint8_t speedLevel = 3) {
   return TinyAudio.playNumber(number, volumePercent, speedLevel);
 }
@@ -238,15 +251,6 @@ inline bool playNumber(double number, uint8_t volumePercent = 100, uint8_t speed
 inline bool playDigit(const char *digits, uint8_t volumePercent = 100, uint8_t speedLevel = 3) {
   return TinyAudio.playDigit(digits, volumePercent, speedLevel);
 }
-
-inline void waitAudioDone(uint16_t pauseAfterMs = 0) {
-  TinyAudio.waitAudioDone(pauseAfterMs);
-}
-
-#if defined(SO_DEM)
-extern const AudioClipInfo soDemClips[] TINY_AUDIO_METADATA_PROGMEM;
-extern const uint16_t soDemClipCount;
-extern const uint16_t soDemSampleRate;
 
 inline bool TinyAudioPlayer::appendNumberToken(const char **tokens, uint8_t &count, const char *name) const {
   if (count >= 32) {
@@ -552,52 +556,5 @@ inline bool TinyAudioPlayer::playDigit(const char *digitText, uint8_t volumePerc
 
   return queueNumberTokens(tokens, count, volumePercent, numberSpeedGap(speedLevel));
 }
-#else
-inline bool TinyAudioPlayer::playNumber(int, uint8_t, uint8_t) {
-  return false;
-}
-
-inline bool TinyAudioPlayer::playNumber(long, uint8_t, uint8_t) {
-  return false;
-}
-
-#if UINT_MAX < UINT32_MAX
-inline bool TinyAudioPlayer::playNumber(unsigned int, uint8_t, uint8_t) {
-  return false;
-}
-#endif
-
-#if defined(ESP8266) || ULONG_MAX != UINT32_MAX
-inline bool TinyAudioPlayer::playNumber(unsigned long, uint8_t, uint8_t) {
-  return false;
-}
-#endif
-
-inline bool TinyAudioPlayer::playNumber(uint32_t, uint8_t, uint8_t) {
-  return false;
-}
-
-inline bool TinyAudioPlayer::playNumber(float, uint8_t, uint8_t, uint8_t) {
-  return false;
-}
-
-inline bool TinyAudioPlayer::playNumber(double, uint8_t, uint8_t, uint8_t) {
-  return false;
-}
-
-inline bool TinyAudioPlayer::playDigit(const char *, uint8_t, uint8_t) {
-  return false;
-}
-#endif
-
-#if defined(SO_DEM) && !defined(SO_DEM_DATA_H)
-#if defined(__has_include)
-#if __has_include("so_dem.h")
-#include "so_dem.h"
-#endif
-#else
-#include "so_dem.h"
-#endif
-#endif
 
 #endif

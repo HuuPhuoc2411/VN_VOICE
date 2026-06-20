@@ -161,7 +161,7 @@ extern const uint16_t soDemClipCount =
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_lam)
 const char soDemName_lam[] TINY_AUDIO_NAME_PROGMEM = "lam";
 extern const uint8_t soDemData_lam_0[] PROGMEM;
-static bool soDemLoadChunk_lam(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_lam(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -182,7 +182,7 @@ static bool soDemLoadChunk_lam(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_tu)
 const char soDemName_tu[] TINY_AUDIO_NAME_PROGMEM = "tu";
 extern const uint8_t soDemData_tu_0[] PROGMEM;
-static bool soDemLoadChunk_tu(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_tu(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -203,7 +203,7 @@ static bool soDemLoadChunk_tu(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_mot_dac_biet)
 const char soDemName_mot_dac_biet[] TINY_AUDIO_NAME_PROGMEM = "mot_dac_biet";
 extern const uint8_t soDemData_mot_dac_biet_0[] PROGMEM;
-static bool soDemLoadChunk_mot_dac_biet(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_mot_dac_biet(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -224,7 +224,7 @@ static bool soDemLoadChunk_mot_dac_biet(uint16_t chunkIndex, AudioDataChunk &chu
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_trieu)
 const char soDemName_trieu[] TINY_AUDIO_NAME_PROGMEM = "trieu";
 extern const uint8_t soDemData_trieu_0[] PROGMEM;
-static bool soDemLoadChunk_trieu(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_trieu(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -245,7 +245,7 @@ static bool soDemLoadChunk_trieu(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_nghin)
 const char soDemName_nghin[] TINY_AUDIO_NAME_PROGMEM = "nghin";
 extern const uint8_t soDemData_nghin_0[] PROGMEM;
-static bool soDemLoadChunk_nghin(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_nghin(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -266,7 +266,7 @@ static bool soDemLoadChunk_nghin(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_le)
 const char soDemName_le[] TINY_AUDIO_NAME_PROGMEM = "le";
 extern const uint8_t soDemData_le_0[] PROGMEM;
-static bool soDemLoadChunk_le(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_le(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -287,7 +287,7 @@ static bool soDemLoadChunk_le(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_tram)
 const char soDemName_tram[] TINY_AUDIO_NAME_PROGMEM = "tram";
 extern const uint8_t soDemData_tram_0[] PROGMEM;
-static bool soDemLoadChunk_tram(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_tram(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -308,7 +308,7 @@ static bool soDemLoadChunk_tram(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_muoi_chuc)
 const char soDemName_muoi_chuc[] TINY_AUDIO_NAME_PROGMEM = "muoi_chuc";
 extern const uint8_t soDemData_muoi_chuc_0[] PROGMEM;
-static bool soDemLoadChunk_muoi_chuc(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_muoi_chuc(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -329,7 +329,7 @@ static bool soDemLoadChunk_muoi_chuc(uint16_t chunkIndex, AudioDataChunk &chunk)
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_muoi)
 const char soDemName_muoi[] TINY_AUDIO_NAME_PROGMEM = "muoi";
 extern const uint8_t soDemData_muoi_0[] PROGMEM;
-static bool soDemLoadChunk_muoi(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_muoi(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -350,7 +350,7 @@ static bool soDemLoadChunk_muoi(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_chin)
 const char soDemName_chin[] TINY_AUDIO_NAME_PROGMEM = "chin";
 extern const uint8_t soDemData_chin_0[] PROGMEM;
-static bool soDemLoadChunk_chin(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_chin(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -371,7 +371,7 @@ static bool soDemLoadChunk_chin(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_tam)
 const char soDemName_tam[] TINY_AUDIO_NAME_PROGMEM = "tam";
 extern const uint8_t soDemData_tam_0[] PROGMEM;
-static bool soDemLoadChunk_tam(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_tam(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -392,7 +392,7 @@ static bool soDemLoadChunk_tam(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_bay)
 const char soDemName_bay[] TINY_AUDIO_NAME_PROGMEM = "bay";
 extern const uint8_t soDemData_bay_0[] PROGMEM;
-static bool soDemLoadChunk_bay(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_bay(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -413,7 +413,7 @@ static bool soDemLoadChunk_bay(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_sau)
 const char soDemName_sau[] TINY_AUDIO_NAME_PROGMEM = "sau";
 extern const uint8_t soDemData_sau_0[] PROGMEM;
-static bool soDemLoadChunk_sau(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_sau(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -434,7 +434,7 @@ static bool soDemLoadChunk_sau(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_nam)
 const char soDemName_nam[] TINY_AUDIO_NAME_PROGMEM = "nam";
 extern const uint8_t soDemData_nam_0[] PROGMEM;
-static bool soDemLoadChunk_nam(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_nam(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -455,7 +455,7 @@ static bool soDemLoadChunk_nam(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_bon)
 const char soDemName_bon[] TINY_AUDIO_NAME_PROGMEM = "bon";
 extern const uint8_t soDemData_bon_0[] PROGMEM;
-static bool soDemLoadChunk_bon(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_bon(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -476,7 +476,7 @@ static bool soDemLoadChunk_bon(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_ba)
 const char soDemName_ba[] TINY_AUDIO_NAME_PROGMEM = "ba";
 extern const uint8_t soDemData_ba_0[] PROGMEM;
-static bool soDemLoadChunk_ba(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_ba(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -497,7 +497,7 @@ static bool soDemLoadChunk_ba(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_hai)
 const char soDemName_hai[] TINY_AUDIO_NAME_PROGMEM = "hai";
 extern const uint8_t soDemData_hai_0[] PROGMEM;
-static bool soDemLoadChunk_hai(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_hai(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -518,7 +518,7 @@ static bool soDemLoadChunk_hai(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_mot)
 const char soDemName_mot[] TINY_AUDIO_NAME_PROGMEM = "mot";
 extern const uint8_t soDemData_mot_0[] PROGMEM;
-static bool soDemLoadChunk_mot(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_mot(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -539,7 +539,7 @@ static bool soDemLoadChunk_mot(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_khong)
 const char soDemName_khong[] TINY_AUDIO_NAME_PROGMEM = "khong";
 extern const uint8_t soDemData_khong_0[] PROGMEM;
-static bool soDemLoadChunk_khong(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_khong(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
@@ -560,7 +560,7 @@ static bool soDemLoadChunk_khong(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(SO_DEM_INCLUDE_ALL) || defined(SO_DEM_ONLY_cham)
 const char soDemName_cham[] TINY_AUDIO_NAME_PROGMEM = "cham";
 extern const uint8_t soDemData_cham_0[] PROGMEM;
-static bool soDemLoadChunk_cham(uint16_t chunkIndex, AudioDataChunk &chunk) {
+static TINY_AUDIO_LOWTEXT bool soDemLoadChunk_cham(uint16_t chunkIndex, AudioDataChunk &chunk) {
   switch (chunkIndex) {
     case 0:
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)

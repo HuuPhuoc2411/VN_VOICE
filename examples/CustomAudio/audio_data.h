@@ -1,5 +1,6 @@
 #ifndef AUDIO_DATA_H
 #define AUDIO_DATA_H
+#define TINY_AUDIO_HAS_AUDIO_DATA_HEADER
 
 #include <Arduino.h>
 #include "VN_VOICE.h"
@@ -13,10 +14,6 @@
 // Name: "xin_chao"
 
 // Clip selection macros
-#if defined(TINY_AUDIO_EXAMPLE_NO_CUSTOM_AUDIO)
-#define TINY_AUDIO_HAS_SELECTION
-#define TINY_AUDIO_EXAMPLE_EMPTY_AUDIO
-#endif
 #if defined(TINY_AUDIO_ONLY_do_am)
 #define TINY_AUDIO_HAS_SELECTION
 #endif
@@ -189,9 +186,6 @@ static bool audioLoadChunk_xin_chao(uint16_t chunkIndex, AudioDataChunk &chunk) 
 #endif
 
 extern const AudioClipInfo audioClips[] TINY_AUDIO_METADATA_PROGMEM = {
-#if defined(TINY_AUDIO_EXAMPLE_EMPTY_AUDIO)
-  { 0, 0, 0, 0 },
-#endif
 #if defined(TINY_AUDIO_INCLUDE_ALL) || defined(TINY_AUDIO_ONLY_do_am)
   { audioName_do_am, audioLoadChunk_do_am, 1, 4824 },
 #endif
@@ -2216,6 +2210,10 @@ const uint8_t audioData_xin_chao_0[] PROGMEM = {
   128, 128, 128, 128
 };
 
+#endif
+
+#if defined(SO_DEM)
+#include "so_dem.h"
 #endif
 
 #endif

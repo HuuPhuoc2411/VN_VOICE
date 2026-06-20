@@ -1,5 +1,6 @@
 #ifndef VN_VOICE_EXAMPLE_AUDIO_H
 #define VN_VOICE_EXAMPLE_AUDIO_H
+#define TINY_AUDIO_HAS_AUDIO_DATA_HEADER
 
 #include <Arduino.h>
 #include "VN_VOICE.h"
@@ -13,10 +14,6 @@
 // Name: "xin_chao"
 
 // Clip selection macros
-#if defined(TINY_AUDIO_EXAMPLE_NO_CUSTOM_AUDIO)
-#define TINY_AUDIO_HAS_SELECTION
-#define TINY_AUDIO_EXAMPLE_EMPTY_AUDIO
-#endif
 #if defined(TINY_AUDIO_ONLY_do_am)
 #define TINY_AUDIO_HAS_SELECTION
 #endif
@@ -62,153 +59,141 @@ extern const uint16_t audioClipCount =
 #endif
 ;
 
+#if defined(TINY_AUDIO_USE_FAR_PROGMEM)
+#define TINY_AUDIO_ARRAY_CHUNK_COUNT 2
+#else
+#define TINY_AUDIO_ARRAY_CHUNK_COUNT 1
+#endif
+
+static TINY_AUDIO_LOWTEXT bool tinyAudioLoadArrayChunk(TinyAudioDataPtr base, uint16_t totalLength, uint16_t chunkIndex, AudioDataChunk &chunk) {
+#if defined(TINY_AUDIO_USE_FAR_PROGMEM)
+  uint16_t firstLength = totalLength;
+  uint32_t lowAddress = (uint32_t)base & 0xFFFFUL;
+
+  if (lowAddress > 0 && lowAddress + totalLength > 0x10000UL) {
+    firstLength = (uint16_t)(0x10000UL - lowAddress);
+  }
+
+  if (chunkIndex == 0) {
+    chunk.data = base;
+    chunk.length = firstLength;
+    return true;
+  }
+
+  if (chunkIndex == 1 && firstLength < totalLength) {
+    chunk.data = base + firstLength;
+    chunk.length = totalLength - firstLength;
+    return true;
+  }
+#else
+  if (chunkIndex == 0) {
+    chunk.data = base;
+    chunk.length = totalLength;
+    return true;
+  }
+#endif
+
+  chunk.data = 0;
+  chunk.length = 0;
+  return false;
+}
+
 #if defined(TINY_AUDIO_INCLUDE_ALL) || defined(TINY_AUDIO_ONLY_do_am)
 const char audioName_do_am[] TINY_AUDIO_NAME_PROGMEM = "do_am";
 extern const uint8_t audioData_do_am_0[] PROGMEM;
-static bool audioLoadChunk_do_am(uint16_t chunkIndex, AudioDataChunk &chunk) {
-  switch (chunkIndex) {
-    case 0:
+static TINY_AUDIO_LOWTEXT bool audioLoadChunk_do_am(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
-      chunk.data = pgm_get_far_address(audioData_do_am_0);
+  TinyAudioDataPtr base = pgm_get_far_address(audioData_do_am_0);
 #else
-      chunk.data = audioData_do_am_0;
+  TinyAudioDataPtr base = audioData_do_am_0;
 #endif
-      chunk.length = 4824;
-      return true;
-    default:
-      chunk.data = 0;
-      chunk.length = 0;
-      return false;
-  }
+  return tinyAudioLoadArrayChunk(base, 4824, chunkIndex, chunk);
 }
 #endif
 
 #if defined(TINY_AUDIO_INCLUDE_ALL) || defined(TINY_AUDIO_ONLY_do_c)
 const char audioName_do_c[] TINY_AUDIO_NAME_PROGMEM = "do_c";
 extern const uint8_t audioData_do_c_0[] PROGMEM;
-static bool audioLoadChunk_do_c(uint16_t chunkIndex, AudioDataChunk &chunk) {
-  switch (chunkIndex) {
-    case 0:
+static TINY_AUDIO_LOWTEXT bool audioLoadChunk_do_c(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
-      chunk.data = pgm_get_far_address(audioData_do_c_0);
+  TinyAudioDataPtr base = pgm_get_far_address(audioData_do_c_0);
 #else
-      chunk.data = audioData_do_c_0;
+  TinyAudioDataPtr base = audioData_do_c_0;
 #endif
-      chunk.length = 4582;
-      return true;
-    default:
-      chunk.data = 0;
-      chunk.length = 0;
-      return false;
-  }
+  return tinyAudioLoadArrayChunk(base, 4582, chunkIndex, chunk);
 }
 #endif
 
 #if defined(TINY_AUDIO_INCLUDE_ALL) || defined(TINY_AUDIO_ONLY_nhiet_do)
 const char audioName_nhiet_do[] TINY_AUDIO_NAME_PROGMEM = "nhiet_do";
 extern const uint8_t audioData_nhiet_do_0[] PROGMEM;
-static bool audioLoadChunk_nhiet_do(uint16_t chunkIndex, AudioDataChunk &chunk) {
-  switch (chunkIndex) {
-    case 0:
+static TINY_AUDIO_LOWTEXT bool audioLoadChunk_nhiet_do(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
-      chunk.data = pgm_get_far_address(audioData_nhiet_do_0);
+  TinyAudioDataPtr base = pgm_get_far_address(audioData_nhiet_do_0);
 #else
-      chunk.data = audioData_nhiet_do_0;
+  TinyAudioDataPtr base = audioData_nhiet_do_0;
 #endif
-      chunk.length = 4439;
-      return true;
-    default:
-      chunk.data = 0;
-      chunk.length = 0;
-      return false;
-  }
+  return tinyAudioLoadArrayChunk(base, 4439, chunkIndex, chunk);
 }
 #endif
 
 #if defined(TINY_AUDIO_INCLUDE_ALL) || defined(TINY_AUDIO_ONLY_phan_tram)
 const char audioName_phan_tram[] TINY_AUDIO_NAME_PROGMEM = "phan_tram";
 extern const uint8_t audioData_phan_tram_0[] PROGMEM;
-static bool audioLoadChunk_phan_tram(uint16_t chunkIndex, AudioDataChunk &chunk) {
-  switch (chunkIndex) {
-    case 0:
+static TINY_AUDIO_LOWTEXT bool audioLoadChunk_phan_tram(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
-      chunk.data = pgm_get_far_address(audioData_phan_tram_0);
+  TinyAudioDataPtr base = pgm_get_far_address(audioData_phan_tram_0);
 #else
-      chunk.data = audioData_phan_tram_0;
+  TinyAudioDataPtr base = audioData_phan_tram_0;
 #endif
-      chunk.length = 4749;
-      return true;
-    default:
-      chunk.data = 0;
-      chunk.length = 0;
-      return false;
-  }
+  return tinyAudioLoadArrayChunk(base, 4749, chunkIndex, chunk);
 }
 #endif
 
 #if defined(TINY_AUDIO_INCLUDE_ALL) || defined(TINY_AUDIO_ONLY_vi_dieu_khien)
 const char audioName_vi_dieu_khien[] TINY_AUDIO_NAME_PROGMEM = "vi_dieu_khien";
 extern const uint8_t audioData_vi_dieu_khien_0[] PROGMEM;
-static bool audioLoadChunk_vi_dieu_khien(uint16_t chunkIndex, AudioDataChunk &chunk) {
-  switch (chunkIndex) {
-    case 0:
+static TINY_AUDIO_LOWTEXT bool audioLoadChunk_vi_dieu_khien(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
-      chunk.data = pgm_get_far_address(audioData_vi_dieu_khien_0);
+  TinyAudioDataPtr base = pgm_get_far_address(audioData_vi_dieu_khien_0);
 #else
-      chunk.data = audioData_vi_dieu_khien_0;
+  TinyAudioDataPtr base = audioData_vi_dieu_khien_0;
 #endif
-      chunk.length = 14406;
-      return true;
-    default:
-      chunk.data = 0;
-      chunk.length = 0;
-      return false;
-  }
+  return tinyAudioLoadArrayChunk(base, 14406, chunkIndex, chunk);
 }
 #endif
 
 #if defined(TINY_AUDIO_INCLUDE_ALL) || defined(TINY_AUDIO_ONLY_xin_chao)
 const char audioName_xin_chao[] TINY_AUDIO_NAME_PROGMEM = "xin_chao";
 extern const uint8_t audioData_xin_chao_0[] PROGMEM;
-static bool audioLoadChunk_xin_chao(uint16_t chunkIndex, AudioDataChunk &chunk) {
-  switch (chunkIndex) {
-    case 0:
+static TINY_AUDIO_LOWTEXT bool audioLoadChunk_xin_chao(uint16_t chunkIndex, AudioDataChunk &chunk) {
 #if defined(TINY_AUDIO_USE_FAR_PROGMEM)
-      chunk.data = pgm_get_far_address(audioData_xin_chao_0);
+  TinyAudioDataPtr base = pgm_get_far_address(audioData_xin_chao_0);
 #else
-      chunk.data = audioData_xin_chao_0;
+  TinyAudioDataPtr base = audioData_xin_chao_0;
 #endif
-      chunk.length = 6324;
-      return true;
-    default:
-      chunk.data = 0;
-      chunk.length = 0;
-      return false;
-  }
+  return tinyAudioLoadArrayChunk(base, 6324, chunkIndex, chunk);
 }
 #endif
 
 extern const AudioClipInfo audioClips[] TINY_AUDIO_METADATA_PROGMEM = {
-#if defined(TINY_AUDIO_EXAMPLE_EMPTY_AUDIO)
-  { 0, 0, 0, 0 },
-#endif
 #if defined(TINY_AUDIO_INCLUDE_ALL) || defined(TINY_AUDIO_ONLY_do_am)
-  { audioName_do_am, audioLoadChunk_do_am, 1, 4824 },
+  { audioName_do_am, audioLoadChunk_do_am, TINY_AUDIO_ARRAY_CHUNK_COUNT, 4824 },
 #endif
 #if defined(TINY_AUDIO_INCLUDE_ALL) || defined(TINY_AUDIO_ONLY_do_c)
-  { audioName_do_c, audioLoadChunk_do_c, 1, 4582 },
+  { audioName_do_c, audioLoadChunk_do_c, TINY_AUDIO_ARRAY_CHUNK_COUNT, 4582 },
 #endif
 #if defined(TINY_AUDIO_INCLUDE_ALL) || defined(TINY_AUDIO_ONLY_nhiet_do)
-  { audioName_nhiet_do, audioLoadChunk_nhiet_do, 1, 4439 },
+  { audioName_nhiet_do, audioLoadChunk_nhiet_do, TINY_AUDIO_ARRAY_CHUNK_COUNT, 4439 },
 #endif
 #if defined(TINY_AUDIO_INCLUDE_ALL) || defined(TINY_AUDIO_ONLY_phan_tram)
-  { audioName_phan_tram, audioLoadChunk_phan_tram, 1, 4749 },
+  { audioName_phan_tram, audioLoadChunk_phan_tram, TINY_AUDIO_ARRAY_CHUNK_COUNT, 4749 },
 #endif
 #if defined(TINY_AUDIO_INCLUDE_ALL) || defined(TINY_AUDIO_ONLY_vi_dieu_khien)
-  { audioName_vi_dieu_khien, audioLoadChunk_vi_dieu_khien, 1, 14406 },
+  { audioName_vi_dieu_khien, audioLoadChunk_vi_dieu_khien, TINY_AUDIO_ARRAY_CHUNK_COUNT, 14406 },
 #endif
 #if defined(TINY_AUDIO_INCLUDE_ALL) || defined(TINY_AUDIO_ONLY_xin_chao)
-  { audioName_xin_chao, audioLoadChunk_xin_chao, 1, 6324 },
+  { audioName_xin_chao, audioLoadChunk_xin_chao, TINY_AUDIO_ARRAY_CHUNK_COUNT, 6324 },
 #endif
 };
 
@@ -2216,6 +2201,10 @@ const uint8_t audioData_xin_chao_0[] PROGMEM = {
   128, 128, 128, 128
 };
 
+#endif
+
+#if defined(SO_DEM)
+#include "so_dem.h"
 #endif
 
 #endif
