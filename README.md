@@ -1,4 +1,6 @@
 # VN_VOICE
+[![Arduino Library](https://www.ardu-badge.com/badge/VN_VOICE.svg)](https://www.ardu-badge.com/VN_VOICE)
+
 
 `VN_VOICE` là thư viện phát âm thanh và đọc số tiếng Việt cho Arduino. Thư viện phát dữ liệu âm thanh 8-bit PCM từ file `.h`, hỗ trợ phát theo tên file, phát nối tiếp nhiều âm, chỉnh âm lượng, đọc số nguyên, số thập phân và đọc chuỗi chữ số như số điện thoại.
 
