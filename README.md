@@ -8,6 +8,8 @@
 
 Web tạo file âm thanh `.h`: <https://huuphuoc.cloud/vn_voice/>
 
+Video hướng dẫn tại youtube: https://youtu.be/6x5XO2Cp5Ww?si=KYkRMLB7FzIwzdSQ
+
 ## Hình Ảnh Minh Họa
 
 Giao diện web tạo file `.h`:
